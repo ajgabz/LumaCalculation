@@ -4,6 +4,7 @@
 package lumaCalculation;
 
 import java.awt.Color;
+import java.util.Comparator;
 
 /** A 'LumaModel' represents a luminosity mathematical function that is based upon
  * a weighted sum of the R-G-B values for a color.
@@ -11,7 +12,7 @@ import java.awt.Color;
  * @author aarongaba
  *
  */
-public class LumaModel {
+public class LumaModel implements Comparator<Color> {
 
 	/**
 	 * The weight of red component in the RGB color space
@@ -91,6 +92,22 @@ public class LumaModel {
 		
 		double luma = redComponent + greenComponent + blueComponent;
 		return luma;
+	}
+	
+	/**
+	 * Compares two colors based upon their computed luma values.
+	 * Returns 1, if o1's luma is greater than o2's, 0, if their luma are equal, -1 otherwise
+	 */
+	@Override
+	public int compare(Color o1, Color o2) {
+		double comparison = this.computeLuma(o1) - this.computeLuma(o2);
+		if (comparison < 0.0) {
+			return -1;
+		} else if (comparison == 0.0) {
+			return 0;
+		} else {
+			return 1;
+		}
 	}
 
 }
