@@ -5,18 +5,35 @@ package lumaCalculation;
 
 import java.awt.Color;
 
-/**
+/** A 'LumaModel' represents a luminosity mathematical function that is based upon
+ * a weighted sum of the R-G-B values for a color.
+ * 
  * @author aarongaba
  *
  */
 public class LumaModel {
 
+	/**
+	 * The weight of red component in the RGB color space
+	 */
 	private double redWeight;
+	
+	/**
+	 * The weight of the green component in the RGB color space
+	 */
 	private double greenWeight;
+	
+	/**
+	 * The weight of the blue component in the RGB color space
+	 */
 	private double blueWeight;
 	
 	/**
-	 * 
+	 * Constructs a luminosity mathematical functions with the given R-G-B weights.
+	 * Each weight must be non-negative and their sum must be one.
+	 * @param redWeight - The weight of the red component
+	 * @param greenWeight - The weight of the green component
+	 * @param blueWeight - The weight of the blue component
 	 */
 	public LumaModel(double redWeight, double greenWeight, double blueWeight) {
 		//Check that all weights are non-negative
@@ -62,6 +79,11 @@ public class LumaModel {
 		return blueWeight;
 	}
 	
+	/**
+	 * Given a color, compute its (perceived) luminosity.
+	 * @param myColor
+	 * @return luma - The (perceived) luminosity of the given color.
+	 */
 	public double computeLuma(Color myColor) {
 		double redComponent = (double) myColor.getRed() * this.redWeight;
 		double greenComponent = (double) myColor.getGreen() * this.greenWeight;
